@@ -1,0 +1,30 @@
+.kosks {
+    width: 95%;
+    height: 90px;
+    margin: 20px 20px;
+    background: #fcfcfc;
+    -webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.3);
+    box-shadow: 3px 3px 7px rgba(0,0,0,0.3), 0px -0.2px 0px 0px rgba(0,0,0,0.3), -0.2px 0px 0px 0px rgba(0,0,0,0.3);
+    border-radius: 3px 3px;
+}
+.blog_message {
+    float: right;
+    width: 350px;
+    margin-right: 1%;
+    margin-top: 4%;
+}
+
+a:link, a:visited {
+    color: #000000;
+    text-decoration: none;
+}
+
+
+blog-h {
+    position: relative;
+    top: 38%;
+    margin: 3%;
+    font-size: 22px;
+    font-weight: bold;
+}
+
