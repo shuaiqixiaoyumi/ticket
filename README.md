@@ -27,7 +27,7 @@ title: 2018-05-24
 =======
 -------
 ---数据库MySQL5.6以上 <br/>
----下载后把maysl目录下的脚本文件（“ticket2018513.sql”）导入到mysql数据库中；注：建库时，字符集编码为：utf8（utf8_general_ci）<br/>
+---下载后把mysql目录下的脚本文件（“ticket2018513.sql”）导入到mysql数据库中；注：建库时，字符集编码为：utf8（utf8_general_ci）<br/>
 ---修改配置文件“jdbc.properties”，改成对应数据库的用户名和密码 <br/>
 ---“sysconfig.properties”系统配置文件；需要修改“root.dir”属性，设置为系统上传文件时用来存放的根目录，git的配置属性修改，设置你自己的git用于知识库的文档和图片上传 <br/>
 ---系统跑起来后，还需要修改配置信息表的信息，包括系统邮件、域账号同步、云之家接口等配置，不需要的可以关闭启用状态
@@ -95,6 +95,10 @@ master 为开发版本 <br />
 
 ![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-42-30.jpg)
 
+-------
+
+ [操作文档](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/ticket.pdf "操作文档")
+ 
 -------
 
 技术交流
