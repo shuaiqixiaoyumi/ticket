@@ -51,49 +51,49 @@ master 为开发版本 <br />
 ---------
  1.首页-显示左菜单栏，常看文档和文档搜索页面，右上角是一些小的系统设置，左上可以显示版本信息和当前一线值班人
  
-![首页](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/09-52-02.jpg)
+![首页](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/09-52-02.jpg)
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/09-50-58.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/09-50-58.jpg)
 
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/09-54-48.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/09-54-48.jpg)
 
  <br />
  2.资源管理 - 设置对应的资源链接，分表单资源，流程资源和其他资源。表单资源和流程资源是在流程管理和表单管理里生成的，其他资源是对应的后台请求 ，选则该资源所需的操作<br />
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/09-56-35.jpg)
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/10-07-46.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/09-56-35.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/10-07-46.jpg)
 
 <br />
  3.菜单管理 - 选择对应的资源设置，后面设置好权限，就会在左边菜单树出现了 <br />
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-05-14.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-05-14.jpg)
 
  <br />
  4.权限管理和角色管理- 创建角色，选择菜单、资源操作按钮、文档管理的文档，文档按钮权限
  
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-17-00.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-17-00.jpg)
 
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-21-29.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-21-29.jpg)
 
  <br />
  5.流程管理-设计过程：流程设计器设置流程-》设置流程菜单资源。流程实例管理，可以查看所有的流程进度，并进行修改删除跳转，一般只开放给管理员
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-23-22.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-23-22.jpg)
 ![](~/11-23-42.jpg)
 
  <br />
  6.表单管理- 设计过程：表管理设计数据库表单-》表单设计器画表格和字段插件，讲字段对应上-》表单资源添加。表单设计器用的是百度霹雳网的插件。
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-39-11.jpg)
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-38-51.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-39-11.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-38-51.jpg)
 7、我的办公 - 用户的代办事项和已办事项
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-41-18.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-41-18.jpg)
 8、文档管理- 首页新增的文档，都会在对应的文档书上挂载，得在角色列表的有对应文档权限才能显示，按钮也是如此
 
-![](https://github.com/shuaiqixiaoyumi/ticket/tree/master/image/11-42-30.jpg)
+![](https://github.com/shuaiqixiaoyumi/ticket/blob/master/image/11-42-30.jpg)
 
 -------
 
