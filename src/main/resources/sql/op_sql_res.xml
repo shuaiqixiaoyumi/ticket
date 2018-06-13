@@ -45,7 +45,7 @@
     </sqlUnit>
     <!-- 拥有该流程角色的用户列表 -->
     <sqlUnit name="flowrole_user_list">
-        <sql>select t.id,t.username,t.full_name,t.mobile_no,o.seq_names 
+        <sql>select t.id,t.username,t.full_name,t.mobile_no,o.seq_names, ru.sort_order  
         from t_n_user t,t_n_org o,t_n_flowrole_user ru where t.state = '1' and t.org_id=o.id and ru.role_id=:id and ru.user_id=t.id 
         [and (t.full_name like '%:name%' or t.username like '%:name%' or t.mobile_no='%:name%')] order by t.create_time asc </sql>
     </sqlUnit>
@@ -69,6 +69,8 @@
         and t.id not in (select ru.role_id from t_n_flowrole_user ru where ru.user_id=:id) 
         [and (t.name like '%:name%' or t.code like '%:name%')] order by t.create_time asc </sql>
     </sqlUnit>
+    
+    
     
     <!-- 角色管理列表 -->
     <sqlUnit name="role_mgr_list">

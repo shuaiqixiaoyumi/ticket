@@ -121,10 +121,45 @@ public class FlowroleService extends MgrServiceImpl<TNFlowrole>{
 		return smartResp;
 	}
 	
+	
+	public SmartResponse<String> updateFlowUser(String id,String sortOrder) throws ServiceException {
+		SmartResponse<String> smartResp = new SmartResponse<String>();
+		try {
+			if(StringUtils.isNotEmpty(id) && null != id ) {
+				
+					TNFlowRoleUser roleUser = flowroleUserDao.find(id);
+					if(roleUser!=null) {
+						roleUser.setSortOrder(sortOrder);
+					}
+					boolean result = flowroleUserDao.update(roleUser);
+					if(result) {
+						smartResp.setResult(OP_SUCCESS);
+						smartResp.setMsg(OP_SUCCESS_MSG);
+					}
+					sortOrder = null;
+					id = null;
+			}
+		} catch (DaoException e) {
+			throw new ServiceException(e.getMessage(),e.getCause());
+		} catch (Exception e) {
+			throw new ServiceException(e.getCause());
+		}
+		return smartResp;
+	}
+	
+	
 	public List<TNUser> getUserListByFlowRoleName(String code){ 
 		List<TNUser> list =  userServ.getDao().getUserListByFlowRoleCode(code);
 		if(list !=null && list.size() >0) {
 			return list;
+		}
+		return null;
+	}
+	
+	public TNFlowRoleUser getByRoleIdandUserId(String roleId, String userId){ 
+		TNFlowRoleUser tfru =  flowroleUserDao.getByRoleIdandUserId(roleId, userId);
+		if(tfru !=null) {
+			return tfru;
 		}
 		return null;
 	}

@@ -244,6 +244,7 @@ public class ProcessFacade {
 	 * @param orgId
 	 * @return
 	 */
+	@SuppressWarnings({ "deprecation", "unused" })
 	public SmartResponse<String> completeTask(SubmitFormData submitFormData,String userId,String orgId) {
 		SmartResponse<String> smartResp = new SmartResponse<String>();
 		smartResp.setMsg("任务处理失败");
@@ -281,11 +282,21 @@ public class ProcessFacade {
 			if(null == nextAssigners) {
 				nextAssigners = new HashMap<String, Object>();
 			}
+			//流程过滤类触发
+			TaskModel nextmodel =  model.getNextTaskModels().get(0);
+			if(nextmodel.getAssignmentHandler()!=null) {
+				MyAssignmentHandler ass = SmartContextService.findByName(nextmodel.getAssignmentHandler(), MyAssignmentHandler.class);
+				String assuser = ass.assignByParentUser(userId)+"";
+				String nextpath = nextmodel.getName();
+				nextAssigners.put("rect3", assuser);
+				System.out.println("model.getAssignmentHandler()"+model.getAssignmentHandler());
+			}
 			for (ITaskSubmitBeforeAware taskSubBefore : taskBeforeList) {
 				TaskBefore taskBefore = new TaskBefore(submitFormData, userId, orgId, 
 						outputNames, nextAssigners, params,model);
 				isSuccess = isSuccess && taskSubBefore.taskExeBefore(taskBefore);
 			}
+			
 			if(isSuccess) {
 				//判断流程实例是否启动[当实例ID和任务ID为空时，创建流程实例]
 				if(StringUtils.isEmpty(submitFormData.getOrderId()) && 
@@ -329,6 +340,7 @@ public class ProcessFacade {
 						throw new RuntimeException(smartResp.getMsg());
 					}
 				} else {
+					System.out.println(outputNames+"----"+nextAssigners);
 					//完成任务
 					if(null != flowVar && flowVar.size()>0 && StringUtils.isNotEmpty(submitFormData.getOrderId())) {
 						facets.addVar2Order(submitFormData.getOrderId(), flowVar);
@@ -480,7 +492,7 @@ public class ProcessFacade {
 		SmartResponse<OrgUserZTreeData> chRes = new SmartResponse<OrgUserZTreeData>();
 		if(StringUtils.isNotEmpty(processId) && StringUtils.isNotEmpty(taskKey)) {
 			 ExtTaskModel taskModel = facets.getTaskModel(processId, taskKey);
-			 System.out.println("111111111111111");
+			 System.out.println("111111111111111"+taskKey);
 			 if(null != taskModel) {
 				 String assignees = taskModel.getAssignee();
 				 System.out.println(assignees);

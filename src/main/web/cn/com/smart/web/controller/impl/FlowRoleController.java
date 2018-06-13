@@ -22,6 +22,7 @@ import cn.com.smart.filter.bean.FilterParam;
 import cn.com.smart.web.bean.RequestPage;
 import cn.com.smart.web.bean.SubmitDataBean;
 import cn.com.smart.web.bean.UserInfo;
+import cn.com.smart.web.bean.entity.TNFlowRoleUser;
 import cn.com.smart.web.bean.entity.TNFlowrole;
 import cn.com.smart.web.bean.entity.TNUser;
 import cn.com.smart.web.constant.enums.SelectedEventType;
@@ -175,16 +176,21 @@ public class FlowRoleController extends BaseController{
 		pageParam = new PageParam(uri, "#flowrole-user-tab", page.getPage(), page.getPageSize());
 		uri = uri+"?id="+searchParam.getId();
 		addBtn = new EditBtn("add","flowrole/addUser?id="+searchParam.getId(), null, "该角色中添加用户", "600");
+//		editBtn = new EditBtn("edit","showPage/base_flowrole_editUser", null, "修改用户排序", "600");
+		editBtn = new EditBtn("edit","flowrole/editUser?roleId="+searchParam.getId(), null, "修改用户排序", "600");
+//		editBtn = new EditBtn("edit","flowrole/editUser?id="+searchParam.getId(), "排序", "修改排序", "600");
 		delBtn = new DelBtn("flowrole/deleteUser?roleId="+searchParam.getId(), "确定要从该角色中删除选中的用户吗？",uri,"#flowrole-user-tab", null);
 		refreshBtn = new RefreshBtn(uri, "flowroleUser","#flowrole-user-tab");
 		ModelMap modelMap = modelView.getModelMap();
 		modelMap.put("smartResp", smartResp);
 		modelMap.put("pageParam", pageParam);
 		modelMap.put("addBtn", addBtn);
+		modelMap.put("editBtn", editBtn);
 		modelMap.put("delBtn", delBtn);
 		modelMap.put("refreshBtn", refreshBtn);
 		modelMap.put("searchParam", searchParam);
-		
+//		addBtn = null;editBtn = null;delBtn = null;
+//		refreshBtn = null;
 		modelView.setViewName(VIEW_DIR+"/userlist");
 		return modelView;
 	}
@@ -219,6 +225,33 @@ public class FlowRoleController extends BaseController{
 		
 		modelView.setViewName(VIEW_DIR+"/addUser");
 		return modelView;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/editUser")
+	@ResponseBody
+	public ModelAndView editUser(String roleId, String id) throws Exception {
+		ModelAndView modelView = new ModelAndView();
+		TNFlowRoleUser tru = flowroleServ.getByRoleIdandUserId(roleId, id);
+		ModelMap modelMap = modelView.getModelMap();
+		modelMap.put("id", tru.getId());
+		modelMap.put("sort_order", tru.getSortOrder());
+		modelMap.put("roleId", roleId);
+		modelView.setViewName(VIEW_DIR+"/editUser");
+		return modelView;
+	}
+	
+	@RequestMapping(value="/updateFlowUser",method=RequestMethod.POST)
+	public @ResponseBody SmartResponse<String> saveFlowUser(TNFlowRoleUser roleuser) throws Exception {
+		SmartResponse<String> smartResp = new SmartResponse<String>();
+		String sordOrerId = roleuser.getSortOrder(); 
+		String id = roleuser.getId();
+		smartResp = flowroleServ.updateFlowUser(id, sordOrerId);
+		return smartResp;
 	}
 	
 	@RequestMapping(value="/saveUser",method=RequestMethod.POST)

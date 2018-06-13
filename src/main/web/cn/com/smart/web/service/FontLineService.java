@@ -33,6 +33,14 @@ public class FontLineService extends MgrServiceImpl<TNFontLine> {
 		return null;
 	}
 	
+	public List<TNFontLine> getFontLine2ListByGroupId(String GroupId){ 
+		List<TNFontLine> list =  fonlineDao.getFontLine2ListByGroupId(GroupId);
+		if(list !=null && list.size() >0) {
+			return list;
+		}
+		return null;
+	}
+	
 	public boolean deleteByGroupId(String groupId) {
 		return fonlineDao.deleteByGroupId(groupId);
 	}

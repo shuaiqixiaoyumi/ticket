@@ -71,7 +71,7 @@
 		<button id="editdoc" style="float:right"  data-title="修改文档" type="button" class="btn btn-primary cnoj-open-tabs" href="index/editpage?uuid=${uuid}"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</button>
 		<button style="float:right" onclick="download()" type="button" class="btn btn-primary" >下载pdf</button>
 		<button style="float:right" onclick="copyurl()" type="button" class="btn btn-primary" >复制分享链接</button>
-		<button id="deldoc" style="float:right" onclick="deletedoc()" type="button" class="btn btn-primary" >删除</button>
+		<button id="deldoc" style="float:right" onclick="dropdoc()" type="button" class="btn btn-primary" >删除</button>
 		
 	</div>
 	<input id="App_PATH" type="hidden" value="${APP_PATH}" />

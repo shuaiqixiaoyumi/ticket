@@ -299,8 +299,9 @@ public class MarkdownController extends BaseController{
 		
 	}
 	
-	
-	public SmartResponse<String> deletedoc(@RequestParam Map<String, Object> map,HttpServletRequest request) {
+	@RequestMapping("/dropdoc")
+	@ResponseBody
+	public SmartResponse<String> dropdoc(@RequestParam Map<String, Object> map,HttpServletRequest request) {
 		SmartResponse<String> smartResp = new SmartResponse<String>();
 		String uuid = map.get("uuid")+"";
 		TNMarkdown tnMarkdown = markdownServ.getDao().find(uuid);
@@ -310,6 +311,7 @@ public class MarkdownController extends BaseController{
     		String file_path = getMarkdownDir(fileType, uuid, request);
 			fileutile.deleteFile(file_path);
 			markdownServ.delete(uuid);
+			docServ.deleteByUUID(uuid);
     	}
 		return smartResp;
 	}

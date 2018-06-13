@@ -199,16 +199,20 @@ function download()
 
 
 function deletedoc(){
-	$.ajax({
-		url:APP_PATH + "/markdownController/deletedoc",
-		type:"GET",
-		data:{ uuid:docuuid },
-		success:function(result){
-			console.log(result);
-			// alert("填入数据—————："+insertText);
-			display(result);
-		}
-	}); 
+	if (confirm("是否确认删除")==true){
+		$.ajax({
+			url:APP_PATH + "/markdownController/dropdoc",
+			type:"GET",
+			data:{ uuid:docuuid },
+			success:function(result){
+				console.log(result);
+				// alert("填入数据—————："+insertText);
+				display(result);
+			}
+		}); 
+	}else{
+		return false;
+	}
 }
 
 

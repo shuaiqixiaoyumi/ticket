@@ -20,6 +20,7 @@ public class TNFlowRoleUser extends BaseBeanImpl {
 	private String id;
 	private String roleId;
 	private String userId;
+	private String sortOrder;
 
 	@Id
 	@Column(name = "ID", length=50)
@@ -47,6 +48,15 @@ public class TNFlowRoleUser extends BaseBeanImpl {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	@Column(name = "sort_order", length = 11)
+	public String getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(String sortOrder) {
+		this.sortOrder = sortOrder;
 	}
 
 }

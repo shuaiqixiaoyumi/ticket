@@ -11,5 +11,7 @@ public interface MyAssignmentHandler extends AssignmentHandler{
 	public Object assignByParentUser(Execution execution, String userId);
 	
 	public Object assignByParentUser(Execution execution, String userId, String assigns);
+	
+	public Object assignByParentUser( String userId);
 
 }

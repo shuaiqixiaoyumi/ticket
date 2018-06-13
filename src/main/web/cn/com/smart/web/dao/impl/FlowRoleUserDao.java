@@ -3,6 +3,7 @@ package cn.com.smart.web.dao.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.SQLQuery;
 import org.springframework.stereotype.Repository;
 
 import com.mixsmart.utils.StringUtils;
@@ -11,12 +12,15 @@ import cn.com.smart.dao.impl.BaseDaoImpl;
 import cn.com.smart.exception.DaoException;
 import cn.com.smart.res.SQLResUtil;
 import cn.com.smart.res.sqlmap.SqlMapping;
+import cn.com.smart.web.bean.entity.TNDoc;
 import cn.com.smart.web.bean.entity.TNFlowRoleUser;
 import cn.com.smart.web.bean.entity.TNRoleUser;
 @Repository("flowroleUserDao")
 public class FlowRoleUserDao extends BaseDaoImpl<TNFlowRoleUser>{
 	
 	private SqlMapping sqlMap;
+	
+	private Map<String, Object> params;
 	
 	public FlowRoleUserDao() {
 		sqlMap = SQLResUtil.getBaseSqlMap();
@@ -97,6 +101,30 @@ public class FlowRoleUserDao extends BaseDaoImpl<TNFlowRoleUser>{
 		}
 		param = null;
 		return is;
+	}
+	
+	public TNFlowRoleUser getByRoleIdandUserId(String roleId, String userId) {
+		TNFlowRoleUser tru = null;
+		if(null == roleId || StringUtils.isEmpty(roleId.toString()) ||null == userId || StringUtils.isEmpty(userId.toString())) {
+			return tru;
+		}
+		String sql = sqlMap.getSQL("get_tfru_by_roleidanduserid");
+		if(StringUtils.isEmpty(sql)) {
+			return tru;
+		}
+		params = new HashMap<String, Object>();
+		params.put("roleId", roleId);
+		params.put("userId", userId);
+		try {
+			SQLQuery sqlQuery = (SQLQuery) super.getQuery(sql, params, true);
+			sqlQuery.addEntity(TNFlowRoleUser.class);
+			tru = (TNFlowRoleUser)sqlQuery.uniqueResult();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		} finally {
+			params = null;
+		}
+		return tru;
 	}
 
 }

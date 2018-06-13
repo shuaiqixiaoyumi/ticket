@@ -103,6 +103,43 @@ public class AcceptHadnler implements MyAssignmentHandler{
 		
 		return actorIds;
 	}
+	
+	public Object assignByParentUser( String userId) {
+		String actorIds = "";
+		SmartResponse<TNUser> userInfo = userService.find(userId);
+		TNUser tnUser = userInfo.getData();
+		String orgId = tnUser.getOrgId();
+		TNOrg org = orgServ.getDao().find(orgId);
+		String bussinessGroupId =orgServ.getBusinessGroupByOrgId(orgId);
+		System.out.println("bussinessGroupId"+bussinessGroupId);
+		try {
+			if(bussinessGroupId != null && !"".equals(bussinessGroupId)) {
+				Map<String, Object> map = new HashMap<>();
+				map.put("groupId", bussinessGroupId);
+				List<TNFontLine> list =  fontlineServ.findByGroupId(bussinessGroupId) ;
+				if(list!=null && list.size() >0 ) {
+					for(TNFontLine tnf : list) {
+						if(actorIds == null || "".equals(actorIds)) {
+							 actorIds = tnf.getUserId();
+						 }else {
+							 actorIds =actorIds + ","+tnf.getUserId();
+						 }
+					}
+					if(actorIds != null && !"".equals(actorIds)){
+						return actorIds;
+					}
+					
+				}else {
+					return null;
+				}
+			}else {
+				return null;
+			}
+		}catch(Exception e) {
+			return null;
+		}
+		return null;
+	}
 
 //	@Override
 //	public Object assignByParentUser(Execution execution, String userId, String assigns) {

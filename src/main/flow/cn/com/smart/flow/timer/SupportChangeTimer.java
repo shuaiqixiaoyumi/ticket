@@ -90,6 +90,10 @@ public class SupportChangeTimer {
 		
 	}*/
 	
+	/**
+	 * 以一线a角为传递标准
+	 */
+	/*
 	@SuppressWarnings("unchecked")
 	public void run() {
 		LoggerUtils.info(logger, "正在启动一线值班人员调整...");
@@ -117,6 +121,7 @@ public class SupportChangeTimer {
 				String key = keys.next();
 				List valuelist = gmap.get(key); //获取当前组的所有带循环的人
 				List<TNFontLine> tnflist = fontlineServ.getFontLine1ListByGroupId(key);//获取当前组的support1
+//				List<TNFontLine> tnflist = fontlineServ.getFontLine2ListByGroupId(key);//获取当前组的support2
 				if(tnflist!=null) {
 					int i= 0;
 					boolean ishas= false;
@@ -148,6 +153,125 @@ public class SupportChangeTimer {
 									tnf.setState(1);
 									tnf.setCreateTime(new Date());
 									tnf.setSortOrder(1);
+									tnf.setUserId(valuelist.get(i+1).toString());
+									fontlineServ.save(tnf);
+								}
+							}else {
+								tnf = new TNFontLine();
+								tnf.setGroupId(key);
+								tnf.setState(1);
+								tnf.setCreateTime(new Date());
+								tnf.setUserId(value.toString());
+								tnf.setSortOrder(1);
+								fontlineServ.save(tnf);
+							}
+						}
+						i++;
+					}
+					if(ishas == false) {
+						fontlineServ.deleteByGroupId(key);
+						TNFontLine tnf = new TNFontLine();
+						tnf.setGroupId(key);
+						tnf.setState(1);
+						tnf.setCreateTime(new Date());
+						tnf.setUserId(valuelist.get(0).toString());
+						tnf.setSortOrder(1);
+						fontlineServ.save(tnf);
+						if(valuelist.size() >1 ) {
+							tnf  = new TNFontLine();
+							tnf.setGroupId(key);
+							tnf.setState(2);
+							tnf.setSortOrder(2);
+							tnf.setCreateTime(new Date());
+							tnf.setUserId(valuelist.get(1).toString());
+							fontlineServ.save(tnf);
+						}
+					}
+				}else {
+					TNFontLine tnf = new TNFontLine();
+					tnf.setGroupId(key);
+					tnf.setState(1);
+					tnf.setCreateTime(new Date());
+					tnf.setUserId(valuelist.get(0).toString());
+					tnf.setSortOrder(1);
+					fontlineServ.save(tnf);
+					if(valuelist.size() >1 ) {
+						tnf  = new TNFontLine();
+						tnf.setGroupId(key);
+						tnf.setState(2);
+						tnf.setSortOrder(2);
+						tnf.setCreateTime(new Date());
+						tnf.setUserId(valuelist.get(1).toString());
+						fontlineServ.save(tnf);
+					}
+				}
+				
+			}
+		}
+	}*/
+	
+	
+	/**
+	 * 以一线b角为传递标准
+	 */
+	@SuppressWarnings("unchecked")
+	public void run() {
+		LoggerUtils.info(logger, "正在启动一线值班人员调整...");
+//		String sql = "select * from t_n_user where id in ( select user_id from t_n_role_user where role_id = (select id from t_n_role where name = '一线人员') ) and sort_order !=''  order by sort_order"; 
+		Map<String, List> gmap = new HashMap<>();//存放各个组的所有人员
+//		List<Map<String, Object>> list = db.queryForList(sql);
+		List<TNUser> list =flowroleServ.getUserListByFlowRoleName("frontline");
+		if(list!=null) {
+			for(TNUser map : list) {
+				String orgId = map.getOrgId();
+				Object userId = map.getId();
+				String seqParentIds = orgServ.getBusinessGroupByOrgId(orgId);
+				if(seqParentIds!=null && !"".equals(seqParentIds)) {
+					if(gmap.containsKey(seqParentIds)) {
+						gmap.get(seqParentIds).add(userId);
+					}else {
+						List<Object> list2 = new ArrayList<>();
+						list2.add(userId);
+						gmap.put(seqParentIds, list2);
+					}
+				}
+			}
+			Iterator<String> keys =	gmap.keySet().iterator();
+			while(keys.hasNext()) {
+				String key = keys.next();
+				List valuelist = gmap.get(key); //获取当前组的所有带循环的人
+				List<TNFontLine> tnflist = fontlineServ.getFontLine2ListByGroupId(key);//获取当前组的support2
+				if(tnflist!=null) {
+					int i= 0;
+					boolean ishas= false;
+					
+					for(Object value : valuelist) {
+						if(value.toString().equals(tnflist.get(0).getUserId())) {
+							ishas =true;
+							System.out.println(key+"--------");
+							fontlineServ.deleteByGroupId(key);
+							TNFontLine tnf = new TNFontLine();
+							if(valuelist.size() >1) {
+								tnf.setGroupId(key);
+								tnf.setState(1);
+								tnf.setCreateTime(new Date());
+								tnf.setUserId(value.toString());
+								tnf.setSortOrder(1);
+								fontlineServ.save(tnf);
+								if(i>=valuelist.size()-1) {
+									tnf  = new TNFontLine();
+									tnf.setGroupId(key);
+									tnf.setState(2);
+									tnf.setCreateTime(new Date());
+									tnf.setSortOrder(2);
+									tnf.setUserId(valuelist.get(0).toString());
+									fontlineServ.save(tnf);
+								}else {
+									tnf  = new TNFontLine();
+									tnf.setGroupId(key);
+									tnf.setState(2);
+									tnf.setCreateTime(new Date());
+									tnf.setSortOrder(2);
 									tnf.setUserId(valuelist.get(i+1).toString());
 									fontlineServ.save(tnf);
 								}

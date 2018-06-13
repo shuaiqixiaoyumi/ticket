@@ -76,6 +76,32 @@ public class FontLineDao  extends BaseDaoImpl<TNFontLine>{
 		return tnFontLine;
 	}
 	
+	/**
+	 * 根据事业群id和一线值获取信息
+	 * @param positionIds
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TNFontLine> getFontLine2ListByGroupId(String GroupId) {
+		List<TNFontLine> tnFontLine = null;
+		String sql = sqlMap.getSQL("get_fontline2_by_groupid");
+		if(StringUtils.isEmpty(sql)) {
+			return tnFontLine;
+		}
+		params = new HashMap<String, Object>();
+		params.put("groupId", GroupId);
+		try {
+			SQLQuery sqlQuery = (SQLQuery) super.getQuery(sql, params, true);
+			sqlQuery.addEntity(TNFontLine.class);
+			tnFontLine = sqlQuery.list();
+		} catch (Exception e) {
+			throw new DaoException(e);
+		} finally {
+			params = null;
+		}
+		return tnFontLine;
+	}
+	
 	public boolean deleteByGroupId(String groupId) {
 		boolean is = false;
 		if(null != groupId && !"".equals(groupId) ) {

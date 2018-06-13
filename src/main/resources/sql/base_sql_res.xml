@@ -38,7 +38,7 @@
     <!-- 根据流程角色英文名获取用户信息 -->
     <sqlUnit name="get_user_by_flowrolecode">
         <sql>
-            select t.* from t_n_user t, t_n_flowrole r, t_n_flowrole_user ru where r.code = :code and ru.role_id = r.id and ru.user_id = t.id order by t.sort_order
+            select t.* from t_n_user t, t_n_flowrole r, t_n_flowrole_user ru where r.code = :code and ru.role_id = r.id and ru.user_id = t.id order by ru.sort_order
         </sql>
     </sqlUnit>
     
@@ -446,6 +446,10 @@
     <sqlUnit name="get_fontline1_by_groupid">
        <sql>select * from t_n_fontline t where t.groupId=:groupId and state = 1 </sql>
     </sqlUnit>
+    <!-- 根据事业群获取一线b角用户记录 -->
+    <sqlUnit name="get_fontline2_by_groupid">
+       <sql>select * from t_n_fontline t where t.groupId=:groupId and state = 2 </sql>
+    </sqlUnit>
      <sqlUnit name="del_fontline_bygroupId">
        <sql>delete from t_n_fontline where groupId=:groupId </sql>
     </sqlUnit>
@@ -463,6 +467,10 @@
     </sqlUnit>
     <sqlUnit name="get_subproperties_by_formdataidandkeyname">
        <sql>select * from t_pf_subproperties t where t.form_data_id=:formDataId and keyname = :keyName  </sql>
+    </sqlUnit>
+    
+     <sqlUnit name="get_tfru_by_roleidanduserid">
+        <sql>select * from t_n_flowrole_user where role_id = :roleId and user_id = :userId </sql>
     </sqlUnit>
     
     

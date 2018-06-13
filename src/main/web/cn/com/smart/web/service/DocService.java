@@ -20,6 +20,7 @@ import cn.com.smart.exception.DaoException;
 import cn.com.smart.exception.ServiceException;
 import cn.com.smart.helper.TreeHelper;
 import cn.com.smart.service.impl.MgrServiceImpl;
+import cn.com.smart.utils.DbBase;
 import cn.com.smart.web.bean.entity.TNDoc;
 import cn.com.smart.web.bean.entity.TNOPAuth;
 import cn.com.smart.web.bean.entity.TNResource;
@@ -37,6 +38,8 @@ import cn.com.smart.web.utils.TreeUtil;
 public class DocService extends MgrServiceImpl<TNDoc> {
 	public static final String  RES_FLAG = "res";
 	public static final String  AUTH_FLAG = "auth";
+	
+	DbBase db = new  DbBase();
 	@Autowired
 	private DocDao docDao;
 	
@@ -215,9 +218,26 @@ public class DocService extends MgrServiceImpl<TNDoc> {
 		SmartResponse<String> smartResp = new SmartResponse<String>();
 		try {
 			if(super.getDao().delete(id)) {
+				db.saveOrUpdate("delete from t_n_role_doc where doc_id = ?", new Object[] {id});
+				db.saveOrUpdate("delete from t_n_role_docresource where resource_id = ?", new Object[] {id});
 				smartResp.setResult(OP_SUCCESS);
 				smartResp.setMsg(OP_SUCCESS_MSG);
 			}
+		} catch (DaoException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return smartResp;
+	}
+	
+	public SmartResponse<String> deleteByUUID(String uuid) {
+		SmartResponse<String> smartResp = new SmartResponse<String>();
+		try {
+			TNDoc tnDoc = this.getDocByCode(uuid);
+			String docId = tnDoc.getId();
+			smartResp = delete(docId);
+			
 		} catch (DaoException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
